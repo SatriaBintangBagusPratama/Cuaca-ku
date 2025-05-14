@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cuaca-ku - Prakiraan Cuaca</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Leaflet Map Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+
+  <body>
+    <div class="weather-header">
+      <img src="logo_cuacaku-removebg-preview.png" alt="Logo Cuaca-ku" class="header-icon">
+    </div>
+
+
+    <div class="container">
+      <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Masukkan nama kota...">
+        <button onclick="getWeather()">🔍 Cari</button>
+      </div>
+
+      <div class="tab-toolbar">
+        <div class="left-tabs">
+          <button class="tab-btn active" onclick="switchTab('currentTab')">Cuaca Saat Ini</button>
+          <button class="tab-btn" onclick="switchTab('forecastTab')">Prakiraan 5 Hari</button>
+        </div>
+        <div class="right-tools">
+          <button id="toggleUnit">🌡️ Fahrenheit</button>
+          <button id="downloadPDF">📄 Unduh PDF</button>
+          <button id="toggleDarkMode">🌙 Dark Mode</button>
+        </div>
+      </div>
+
+      <div id="weatherResult">
+        <div id="currentTab" class="tab-content active-tab"></div>
+        <div id="forecastTab" class="tab-content"></div>
+      </div>
+
+      <div class="weather-layer-selector">
+        <label for="layerSelect">Tampilkan Layer Cuaca :</label>
+        <select id="layerSelect" onchange="changeWeatherLayer()">
+          <option value="temp_new">🌡️ Suhu</option>
+          <option value="clouds_new">☁️ Awan</option>
+          <option value="precipitation_new">🌧️ Hujan</option>
+          <option value="wind_new">💨 Angin</option>
+        </select>
+      </div>      
+
+      <!-- Peta Lokasi -->
+      <div id="map"></div>
+
+      
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+
+  <footer>
+    
+    <p style="text-align:center; font-size:12px; margin-top:30px; color:#888;">
+      Data dari OpenWeatherMap · Dibuat oleh :
+    </p>
+    <p style="text-align:center; font-size:14px; font-weight:bold; color:#444;">
+      Muhammad Alief A.P. - L200220281
+    </p>
+    <p style="text-align:center; font-size:14px; font-weight:bold; color:#444;">
+      Satria Bintang B.P. - L200220284
+    </p>
+  </footer>
+</html>
