@@ -40,7 +40,7 @@ function getWeather() {
       document.getElementById("forecastTab").innerHTML = `
         <h3>Prediksi 5 Hari ke Depan :</h3>
         <div id="forecastList"></div>
-        <canvas id="temperatureChart" width="400" height="200"></canvas>
+        <canvas id="forecastChart" width="400" height="200"></canvas>
       `;
 
       fetch(urlForecast)
@@ -67,11 +67,11 @@ function getWeather() {
 
           // Tunda grafik sampai canvas siap dirender
           requestAnimationFrame(() => {
-            const canvas = document.getElementById("temperatureChart");
+            const canvas = document.getElementById("forecastChart");
             if (canvas) {
               createTemperatureChart(forecastData);
             } else {
-              console.error("Canvas temperatureChart tidak ditemukan.");
+              console.error("Canvas forecastChart tidak ditemukan.");
             }
           });
         });
@@ -172,7 +172,7 @@ doc.text(`${pressure}`, 20, y); y += 12;
       y = 20;
     }
   });
-  const chartCanvas = document.getElementById("temperatureChart");
+  const chartCanvas = document.getElementById("forecastChart");
   if (chartCanvas) {
     const chartImage = chartCanvas.toDataURL("image/png");
     if (y > 180) {
@@ -194,7 +194,14 @@ function createTemperatureChart(forecastData) {
       temperatures.push(item.main.temp);
     }
   });
-  const ctx = document.getElementById("temperatureChart").getContext("2d");
+
+  const canvas = document.getElementById("forecastChart");
+  if (!canvas) {
+    console.error("Canvas forecastChart tidak ditemukan.");
+    return;
+  }
+
+  const ctx = canvas.getContext("2d");
   if (window.temperatureChart) window.temperatureChart.destroy();
   window.temperatureChart = new Chart(ctx, {
     type: 'line',
@@ -204,13 +211,18 @@ function createTemperatureChart(forecastData) {
         label: `Suhu (°${isFahrenheit ? 'F' : 'C'})`,
         data: temperatures,
         borderColor: '#FF5733',
-        fill: false,
-        tension: 0.1
+        backgroundColor: 'rgba(255,87,51,0.2)',
+        fill: true,
+        tension: 0.3
       }]
     },
     options: {
       responsive: true,
-      scales: { y: { beginAtZero: false } }
+      scales: {
+        y: {
+          beginAtZero: false
+        }
+      }
     }
   });
 }
