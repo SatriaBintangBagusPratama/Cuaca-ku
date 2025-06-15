@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cuaca-ku - Prakiraan Cuaca</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Leaflet Map Library -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  </head>
+
+  <body>
+  <div class="search-section">
+    <div class="weather-header">
+      <img src="logo_cuacaku.png" alt="Logo Cuaca-ku" class="header-icon large-logo">
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="cityInput" placeholder="Masukkan nama kota...">
+      <button onclick="getWeather()">🔍 Cari</button>
+    </div>
+
+    <div id="suggestedCities" class="city-list"></div>
+  </div>
+
+  <div class="container" style="display: none;" id="weatherContainer">
+    <div class="tab-toolbar">
+      <div class="left-tabs">
+        <button class="tab-btn active" onclick="switchTab('currentTab')">Cuaca Saat Ini</button>
+        <button class="tab-btn" onclick="switchTab('forecastTab')">Prakiraan 5 Hari</button>
+      </div>
+      <div class="right-tools">
+        <button id="toggleUnit">🌡️ Fahrenheit</button>
+        <button id="downloadPDF">📄 Unduh PDF</button>
+        <button id="toggleDarkMode">🌙 Dark Mode</button>
+      </div>
+    </div>
+
+    <div id="weatherResult">
+      <div id="currentTab" class="tab-content active-tab"></div>
+      <div id="forecastTab" class="tab-content"></div>
+    </div>
+
+    <div class="weather-layer-selector">
+      <label for="layerSelect">Tampilkan Layer Cuaca :</label>
+      <select id="layerSelect" onchange="changeWeatherLayer()">
+        <option value="temp_new">🌡️ Suhu</option>
+        <option value="clouds_new">☁️ Awan</option>
+        <option value="precipitation_new">🌧️ Hujan</option>
+        <option value="wind_new">💨 Angin</option>
+      </select>
+    </div>
+
+    <div id="map"></div>
+  </div>
+
+  <!-- JavaScript Library Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
